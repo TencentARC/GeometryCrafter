@@ -179,9 +179,9 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
                 lat,           
                 num_frames=lat.shape[0],
             )
-            rec_intrinsic_maps.append(rec_imap)
-            rec_depth_maps.append(rec_dmap)
-            rec_valid_masks.append(rec_vmask)
+            rec_intrinsic_maps.append(rec_imap.cpu())
+            rec_depth_maps.append(rec_dmap.cpu())
+            rec_valid_masks.append(rec_vmask.cpu())
         
         rec_intrinsic_maps = torch.cat(rec_intrinsic_maps, dim=0)
         rec_depth_maps = torch.cat(rec_depth_maps, dim=0)
