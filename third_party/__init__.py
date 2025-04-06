@@ -17,6 +17,6 @@ class MoGe(nn.Module):
     def forward_image(self, image: torch.Tensor, **kwargs):
         # image: b, 3, h, w 0,1
         output = self.model.infer(image, resolution_level=9, apply_mask=False, **kwargs)
-        points = output['points'] # b,h,w,3
-        masks = output['mask'] # b,h,w
+        points = output['points'].cpu() # b,h,w,3
+        masks = output['mask'].cpu() # b,h,w
         return points, masks
