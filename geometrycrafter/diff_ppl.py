@@ -147,13 +147,13 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
         intrinsic_map = torch.norm(intrinsic_map[:, 2:4], p=2, dim=1, keepdim=False)
 
         for i in range(0, T, chunk_size):
-            latent_dist = self.vae.encode(psedo_image[i : i + chunk_size].to(self.vae.dtype)).latent_dist
+            latent_dist = self.vae.encode(psedo_image[i : i + chunk_size].to("cuda", self.vae.dtype)).latent_dist
             latent_dist = point_map_vae.encode(                
                 torch.cat([
                     intrinsic_map[i:i+chunk_size, None],
                     point_map[i:i+chunk_size, 2:3], 
                     disparity[i:i+chunk_size, None], 
-                    valid_mask[i:i+chunk_size, None]], dim=1),
+                    valid_mask[i:i+chunk_size, None]], dim=1).to("cuda"),
                 latent_dist
             )
             if isinstance(latent_dist, DiagonalGaussianDistribution):
