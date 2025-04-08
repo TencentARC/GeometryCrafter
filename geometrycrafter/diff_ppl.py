@@ -318,6 +318,13 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
         video = video * 2.0 - 1.0  # [0,1] -> [-1,1], in [t, c, h, w]
 
         video_embeddings = self.encode_video(video, chunk_size=decode_chunk_size).unsqueeze(0)
+
+        video_latents = self.encode_vae_video(
+            video.to(self.vae.dtype),
+            chunk_size=decode_chunk_size,
+        ).unsqueeze(0).to(video_embeddings.dtype)  # [1, t, c, h, w]
+        
+        del video
         prior_latents = self.encode_point_map(
             point_map_vae,
             pred_disparity, 
@@ -336,10 +343,7 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
         if needs_upcasting:
             self.vae.to(dtype=torch.float32)
 
-        video_latents = self.encode_vae_video(
-            video.to(self.vae.dtype),
-            chunk_size=decode_chunk_size,
-        ).unsqueeze(0).to(video_embeddings.dtype)  # [1, t, c, h, w]
+        
 
         torch.cuda.empty_cache()
 
@@ -488,7 +492,13 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
                 latents_all = torch.cat([latents_all, latents[:, overlap:]], dim=1)
 
             idx_start += stride
-
+        
+        del latents
+        del prior_latents
+        del latent_model_input
+        del latents_init
+        del noise_pred
+        torch.cuda.empty_cache()
         latents_all = 1 / self.vae.config.scaling_factor * latents_all.squeeze(0).to(torch.float32)
 
         if track_time:
