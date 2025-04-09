@@ -147,13 +147,13 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
         intrinsic_map = torch.norm(intrinsic_map[:, 2:4], p=2, dim=1, keepdim=False)
 
         for i in range(0, T, chunk_size):
-            latent_dist = self.vae.encode(psedo_image[i : i + chunk_size].to(self.vae.dtype)).latent_dist
+            latent_dist = self.vae.encode(psedo_image[i : i + chunk_size].to("cuda", self.vae.dtype)).latent_dist
             latent_dist = point_map_vae.encode(                
                 torch.cat([
                     intrinsic_map[i:i+chunk_size, None],
                     point_map[i:i+chunk_size, 2:3], 
                     disparity[i:i+chunk_size, None], 
-                    valid_mask[i:i+chunk_size, None]], dim=1),
+                    valid_mask[i:i+chunk_size, None]], dim=1).to("cuda"),
                 latent_dist
             )
             if isinstance(latent_dist, DiagonalGaussianDistribution):
@@ -179,9 +179,9 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
                 lat,           
                 num_frames=lat.shape[0],
             )
-            rec_intrinsic_maps.append(rec_imap)
-            rec_depth_maps.append(rec_dmap)
-            rec_valid_masks.append(rec_vmask)
+            rec_intrinsic_maps.append(rec_imap.cpu())
+            rec_depth_maps.append(rec_dmap.cpu())
+            rec_valid_masks.append(rec_vmask.cpu())
         
         rec_intrinsic_maps = torch.cat(rec_intrinsic_maps, dim=0)
         rec_depth_maps = torch.cat(rec_depth_maps, dim=0)
@@ -325,6 +325,13 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
         video = video * 2.0 - 1.0  # [0,1] -> [-1,1], in [t, c, h, w]
 
         video_embeddings = self.encode_video(video, chunk_size=decode_chunk_size).unsqueeze(0)
+
+        video_latents = self.encode_vae_video(
+            video.to(self.vae.dtype),
+            chunk_size=decode_chunk_size,
+        ).unsqueeze(0).to(video_embeddings.dtype)  # [1, t, c, h, w]
+        
+        del video
         prior_latents = self.encode_point_map(
             point_map_vae,
             pred_disparity, 
@@ -343,10 +350,7 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
         if needs_upcasting:
             self.vae.to(dtype=torch.float32)
 
-        video_latents = self.encode_vae_video(
-            video.to(self.vae.dtype),
-            chunk_size=decode_chunk_size,
-        ).unsqueeze(0).to(video_embeddings.dtype)  # [1, t, c, h, w]
+        
 
         torch.cuda.empty_cache()
 
@@ -495,7 +499,13 @@ class GeometryCrafterDiffPipeline(StableVideoDiffusionPipeline):
                 latents_all = torch.cat([latents_all, latents[:, overlap:]], dim=1)
 
             idx_start += stride
-
+        
+        del latents
+        del prior_latents
+        del latent_model_input
+        del latents_init
+        del noise_pred
+        torch.cuda.empty_cache()
         latents_all = 1 / self.vae.config.scaling_factor * latents_all.squeeze(0).to(torch.float32)
 
         if track_time:
