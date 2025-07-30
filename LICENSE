@@ -1,8 +1,10 @@
+The copyright notice pertaining to the Tencent code in this repo was previously in the name of “THL A29 Limited.”  That entity has now been de-registered.  You should treat all previously distributed copies of the code as if the copyright notice was in the name of “Tencent.”
+
 This project, "GeometryCrafter", is fine-tuned with the assistance of "Stable Video Diffusion Image-to-Video Model" (SVD) which is subject to the STABILITY AI COMMUNITY LICENSE AGREEMENT. Details of the license of the base models can be found in the Notice file. 
 
 In addition, usage of any components originally developed or modified by us, is also subject to the following requirement:
 
-Copyright (C) 2025 THL A29 Limited, a Tencent company.  All rights reserved.
+Copyright (C) 2025 Tencent.  All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this Software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, and/or sublicense copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
