@@ -1,8 +1,10 @@
 Usage and Legal Notices:
 
+The copyright notice pertaining to the Tencent code in this repo was previously in the name of “THL A29 Limited.”  That entity has now been de-registered.  You should treat all previously distributed copies of the code as if the copyright notice was in the name of “Tencent.”
+
 Tencent is pleased to support the open source community by making GeometryCrafter available.
 
-Copyright (C) 2025 THL A29 Limited, a Tencent company.  All rights reserved. The below software and/or models in this distribution may have been modified by THL A29 Limited ("Tencent Modifications"). All Tencent Modifications are Copyright (C) THL A29 Limited.
+Copyright (C) 2025 Tencent.  All rights reserved. The below software and/or models in this distribution may have been modified by Tencent ("Tencent Modifications"). All Tencent Modifications are Copyright (C) Tencent.
 
 License of GeometryCrafter ("License") can be found in this repository called "License" except for the third-party components listed below, which is licensed under different terms. GeometryCrafter does not impose any additional limitations beyond what is outlined in the respective licenses of these third-party components. Users must comply with all terms and conditions of original licenses of these third-party components and must ensure that the usage of the third party components adheres to all relevant laws and regulations. 
 
@@ -14,7 +16,7 @@ Other dependencies and licenses:
 Open Source Model Licensed under the STABILITY AI COMMUNITY LICENSE AGREEMENT:
 The below model in this distribution may have been modified by THL A29 Limited ("Tencent Modifications"), as model weights provided for the GeometryCrafter Project hereunder is fine-tuned with the assistance of below model.
 
-All Tencent Modifications are Copyright (C) 2025 THL A29 Limited.
+All Tencent Modifications are Copyright (C) Tencent.
 --------------------------------------------------------------------
 1. Stable Video Diffusion Image-to-Video Model
 This Stability AI Model is licensed under the Stability AI Community License, Copyright ©  Stability AI Ltd. All Rights Reserved
