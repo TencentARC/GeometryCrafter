@@ -7,12 +7,13 @@ _**[Tian-Xing Xu<sup>1</sup>](https://scholar.google.com/citations?user=zHp0rMIA
 [Xiangjun Gao<sup>3</sup>](https://scholar.google.com/citations?user=qgdesEcAAAAJ&hl=en), 
 [Wenbo Hu<sup>2 &dagger;</sup>](https://wbhu.github.io), 
 [Xiaoyu Li<sup>2</sup>](https://xiaoyu258.github.io), 
-[Song-Hai Zhang<sup>1 &dagger;</sup>](https://scholar.google.com/citations?user=AWtV-EQAAAAJ&hl=en), 
+[Song-Hai Zhang<sup>4,1 &dagger;</sup>](https://scholar.google.com/citations?user=AWtV-EQAAAAJ&hl=en), 
 [Ying Shan<sup>2</sup>](https://scholar.google.com/citations?user=4oXBp9UAAAAJ&hl=en)**_
 <br>
 <sup>1</sup>Tsinghua University
 <sup>2</sup>ARC Lab, Tencent PCG
 <sup>3</sup>HKUST
+<sup>4</sup>Qinghai University
 
 ICCV 2025
 
@@ -20,7 +21,7 @@ ICCV 2025
  <a href='https://arxiv.org/abs/2504.01016'><img src='https://img.shields.io/badge/arXiv-2504.01016-b31b1b.svg'></a> &nbsp;
  <a href='https://geometrycrafter.github.io'><img src='https://img.shields.io/badge/Project-Page-Green'></a> &nbsp;
  <a href='https://huggingface.co/spaces/TencentARC/GeometryCrafter'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Demo-blue'></a> &nbsp;
-
+ <a href="https://www.youtube.com/watch?v=T5I69fAh_ko"><img src="https://img.shields.io/youtube/views/T5I69fAh_ko"></a>
 </div>
 
 ## 🔆 Notice
